@@ -16,13 +16,13 @@ web3.eth.getTransactionCount(account1, (err, txCount) => {
     const txObject = {
         nonce: web3.utils.toHex(txCount),
         gasLimit: web3.utils.toHex(1000000), // Raise the gas limit to a much higher amount
-        gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei')),
+        gasPrice: web3.utils.toHex(web3.utils.toWei('5', 'gwei')),
         data: data
     }
 
 
     // Sign the transaction
-    const tx = new Tx(txObject, { chain: 'ropsten', hardfork: 'petersburg' })
+    const tx = new Tx(txObject, { chain: 'rinkeby', hardfork: 'petersburg' })
     tx.sign(privateKey1)
 
     const serializedTx = tx.serialize()
@@ -33,6 +33,7 @@ web3.eth.getTransactionCount(account1, (err, txCount) => {
         console.log('err:', err)
         console.log('txHash:', txHash)
     })
+
 })
 
 web3.eth.getBalance(account1, (err, bal) => { console.log('account 1 balance :', bal) })
@@ -49,5 +50,6 @@ const address = '0xF27844E4bBBAa29F4A20E2F6a3Df83AD49DDB39C'
 const contract = new web3.eth.Contract(abi, address)
 
 contract.methods.name().call((err, name) => {
+    // console.log('err:', err)
     console.log('name:', name)
 })
